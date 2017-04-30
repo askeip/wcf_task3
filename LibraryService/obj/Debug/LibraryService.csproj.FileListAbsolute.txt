@@ -1,0 +1,6 @@
+C:\Users\Евгений\Desktop\Универ\Сервисы. Взаимодействия приложений\TaskThree\LibraryService\bin\LibraryService.pdb
+C:\Users\Евгений\Desktop\Универ\Сервисы. Взаимодействия приложений\TaskThree\LibraryService\obj\Debug\LibraryService.csprojResolveAssemblyReference.cache
+C:\Users\Евгений\Desktop\Универ\Сервисы. Взаимодействия приложений\TaskThree\LibraryService\obj\Debug\LibraryService.pdb
+C:\Users\Евгений\Desktop\Универ\Сервисы. Взаимодействия приложений\TaskThree\LibraryService\bin\LibraryService.exe.config
+C:\Users\Евгений\Desktop\Универ\Сервисы. Взаимодействия приложений\TaskThree\LibraryService\bin\LibraryService.exe
+C:\Users\Евгений\Desktop\Универ\Сервисы. Взаимодействия приложений\TaskThree\LibraryService\obj\Debug\LibraryService.exe

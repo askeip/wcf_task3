@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2c9d86e6-5674-4413-b521-cf7371feafa3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8886/libraryservice" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="libraryservice.disco" MetadataType="Disco" ID="55f8ac57-c659-474b-a457-da385fdb8dc7" SourceId="1" SourceUrl="http://localhost:8886/libraryservice?disco" />
+    <MetadataFile FileName="libraryservice.xsd" MetadataType="Schema" ID="2ef53611-bb78-43ca-9fa4-bacf8d0b8363" SourceId="1" SourceUrl="http://localhost:8886/libraryservice?xsd=xsd2" />
+    <MetadataFile FileName="libraryservice1.xsd" MetadataType="Schema" ID="9aab06fc-b476-48e0-94d7-4421624556eb" SourceId="1" SourceUrl="http://localhost:8886/libraryservice?xsd=xsd0" />
+    <MetadataFile FileName="libraryservice2.xsd" MetadataType="Schema" ID="742fe2f1-1c58-4df4-8c1e-5cd373d36d34" SourceId="1" SourceUrl="http://localhost:8886/libraryservice?xsd=xsd1" />
+    <MetadataFile FileName="LibraryService.wsdl" MetadataType="Wsdl" ID="af76ec79-e9e7-4ab0-9912-1f341207d4d7" SourceId="1" SourceUrl="http://localhost:8886/libraryservice?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
