@@ -182,7 +182,7 @@ namespace LibraryClient.ServiceReference1 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ILibraryService", SessionMode=System.ServiceModel.SessionMode.Required)]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ILibraryService", CallbackContract=typeof(LibraryClient.ServiceReference1.ILibraryServiceCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface ILibraryService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILibraryService/LogIn", ReplyAction="http://tempuri.org/ILibraryService/LogInResponse")]
@@ -229,6 +229,12 @@ namespace LibraryClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/ILibraryService/ConfirmChoice", ReplyAction="http://tempuri.org/ILibraryService/ConfirmChoiceResponse")]
         System.Threading.Tasks.Task<string> ConfirmChoiceAsync();
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/ILibraryService/Talk")]
+        void Talk(string speech);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/ILibraryService/Talk")]
+        System.Threading.Tasks.Task TalkAsync(string speech);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsTerminating=true, IsInitiating=false, Action="http://tempuri.org/ILibraryService/LeaveLibrary")]
         void LeaveLibrary();
         
@@ -237,30 +243,38 @@ namespace LibraryClient.ServiceReference1 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ILibraryServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILibraryService/AnswerToAdminCallback")]
+        void AnswerToAdminCallback(string question);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ILibraryServiceChannel : LibraryClient.ServiceReference1.ILibraryService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class LibraryServiceClient : System.ServiceModel.ClientBase<LibraryClient.ServiceReference1.ILibraryService>, LibraryClient.ServiceReference1.ILibraryService {
+    public partial class LibraryServiceClient : System.ServiceModel.DuplexClientBase<LibraryClient.ServiceReference1.ILibraryService>, LibraryClient.ServiceReference1.ILibraryService {
         
-        public LibraryServiceClient() {
+        public LibraryServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public LibraryServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public LibraryServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public LibraryServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public LibraryServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public LibraryServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public LibraryServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public LibraryServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public LibraryServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
         }
         
         public void LogIn(string userName) {
@@ -317,6 +331,14 @@ namespace LibraryClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<string> ConfirmChoiceAsync() {
             return base.Channel.ConfirmChoiceAsync();
+        }
+        
+        public void Talk(string speech) {
+            base.Channel.Talk(speech);
+        }
+        
+        public System.Threading.Tasks.Task TalkAsync(string speech) {
+            return base.Channel.TalkAsync(speech);
         }
         
         public void LeaveLibrary() {

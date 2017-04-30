@@ -8,7 +8,7 @@ using System.Text;
 
 namespace LibraryService
 {
-    [ServiceContract(SessionMode = SessionMode.Required)]
+    [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(ILibraryCallback))]
     public interface ILibraryService
     {
         [OperationContract]
@@ -34,8 +34,18 @@ namespace LibraryService
         [OperationContract(IsInitiating = false)]
         string ConfirmChoice();
 
+        [OperationContract(IsInitiating = false, IsOneWay = true)]
+        void Talk(string speech);
+
         [OperationContract(IsInitiating = false, IsTerminating = true, IsOneWay = true)]
         void LeaveLibrary();
+    }
+
+    [ServiceContract]
+    public interface ILibraryCallback
+    {
+        [OperationContract(IsOneWay = true)]
+        void AnswerToAdminCallback(string question); //rename
     }
 
     [DataContract]

@@ -11,20 +11,35 @@ namespace LibraryService
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class LibraryService : ILibraryService
     {
+        private class TakingInfo
+        {
+            public DateTime DateOfTaking;
+            public Book Book;
+
+            public TakingInfo(Book book)
+            {
+                DateOfTaking = DateTime.UtcNow;
+                Book = book;
+            }
+        }
+
+        private ILibraryCallback callback = null;
+
         private static readonly List<Book> AvailableBooks = new List<Book>();
         private static readonly Dictionary<int, Book> TakenBooks = new Dictionary<int, Book>();
 
-        private static readonly Dictionary<string, List<Book>> UnnamedDictionary = new Dictionary<string, List<Book>>();
+        private static readonly Dictionary<string, List<TakingInfo>> UserActivity = new Dictionary<string, List<TakingInfo>>();
 
         private string userName;
         private List<Book> chosenBooks;
 
         public void LogIn(string userName)
         {
+            callback = OperationContext.Current.GetCallbackChannel<ILibraryCallback>();
             this.userName = userName;
             chosenBooks = new List<Book>();
-            if (!UnnamedDictionary.ContainsKey(userName))
-                UnnamedDictionary.Add(userName, new List<Book>());
+            if (!UserActivity.ContainsKey(userName))
+                UserActivity.Add(userName, new List<TakingInfo>());
             Console.WriteLine(userName + " came to library");
         }
 
@@ -69,30 +84,39 @@ namespace LibraryService
             {
                 AvailableBooks[bookToTake.Id] = null;
                 TakenBooks.Add(bookToTake.Id, bookToTake);
-                UnnamedDictionary[userName].Add(bookToTake);
+                UserActivity[userName].Add(new TakingInfo(bookToTake));
             }
             return bookToTake;
         }
 
         public void ReturnBook(Book book)
         {
-            if (!UnnamedDictionary[userName].Any(z => z != null && z.Equals(book))) return;
+            if (!UserActivity[userName].Any(z => z != null && z.Book.Equals(book))) return;
             TakenBooks.Remove(book.Id);
-            UnnamedDictionary[userName]
-                .Remove(book);
+            UserActivity[userName].Remove(UserActivity[userName].First(z => z.Book.Equals(book)));
             AvailableBooks[book.Id] = book;
         }
 
         public string ConfirmChoice()
         {
-            if (UnnamedDictionary[userName].Count + chosenBooks.Count <= 5)
+            if (UserActivity[userName].Any(z => DateTime.UtcNow.Subtract(z.DateOfTaking) > TimeSpan.FromDays(30)))
             {
-                UnnamedDictionary[userName] = UnnamedDictionary[userName].Concat(chosenBooks)
+                callback.AnswerToAdminCallback("Где книги и когда принесешь?");
+                return null;
+            }
+            if (UserActivity[userName].Count + chosenBooks.Count <= 5)
+            {
+                UserActivity[userName] = UserActivity[userName].Concat(chosenBooks.Select(z => new TakingInfo(z)))
                     .ToList();
                 chosenBooks = new List<Book>();
                 return "Books taken";
             }
             return "You cant take more than 5 books";
+        }
+
+        public void Talk(string speech)
+        {
+            Console.WriteLine(speech);
         }
 
         public void LeaveLibrary()

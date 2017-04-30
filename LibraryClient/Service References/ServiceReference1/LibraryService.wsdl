@@ -67,8 +67,14 @@
   <wsdl:message name="ILibraryService_ConfirmChoice_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConfirmChoiceResponse" />
   </wsdl:message>
+  <wsdl:message name="ILibraryService_Talk_InputMessage">
+    <wsdl:part name="parameters" element="tns:Talk" />
+  </wsdl:message>
   <wsdl:message name="ILibraryService_LeaveLibrary_InputMessage">
     <wsdl:part name="parameters" element="tns:LeaveLibrary" />
+  </wsdl:message>
+  <wsdl:message name="ILibraryService_AnswerToAdminCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:AnswerToAdminCallback" />
   </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="ILibraryService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="LogIn">
@@ -101,8 +107,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ILibraryService/ConfirmChoice" message="tns:ILibraryService_ConfirmChoice_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ILibraryService/ConfirmChoiceResponse" message="tns:ILibraryService_ConfirmChoice_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="Talk">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILibraryService/Talk" message="tns:ILibraryService_Talk_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="true" name="LeaveLibrary">
       <wsdl:input wsaw:Action="http://tempuri.org/ILibraryService/LeaveLibrary" message="tns:ILibraryService_LeaveLibrary_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="AnswerToAdminCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILibraryService/AnswerToAdminCallback" message="tns:ILibraryService_AnswerToAdminCallback_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ILibraryService" type="tns:ILibraryService">
@@ -177,11 +189,23 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Talk">
+      <soap12:operation soapAction="http://tempuri.org/ILibraryService/Talk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="LeaveLibrary">
       <soap12:operation soapAction="http://tempuri.org/ILibraryService/LeaveLibrary" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="AnswerToAdminCallback">
+      <soap12:operation soapAction="http://tempuri.org/ILibraryService/AnswerToAdminCallback" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="LibraryService">

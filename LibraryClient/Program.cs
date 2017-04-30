@@ -52,7 +52,11 @@ namespace LibraryClient
         #endregion
         static void Main(string[] args)
         {
-            var client = new LibraryServiceClient();
+            var cb = new LibraryServiceCallback();
+            var instanceContext = new InstanceContext(cb);
+            var client = new LibraryServiceClient(instanceContext);
+            cb.Client = client;
+
             client.LogIn("user1");
             AddSomeBooks(client);
             var books = new List<Book>();
